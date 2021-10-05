@@ -1,0 +1,20 @@
+@import "../../styles/variables.scss";
+
+.map {
+  width: 100%;
+  height: 100%;
+}
+
+:global {
+  .mapboxgl-map {
+    font: $open-sans-default;
+  }
+
+  .mapboxgl-popup-content {
+    padding: 0;
+
+    &:hover {
+      background-color: $marker-hover;
+    }
+  }
+}

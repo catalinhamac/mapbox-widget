@@ -1,0 +1,17 @@
+@import "../node_modules/mapbox-gl/dist/mapbox-gl.css";
+@import "../node_modules/primeicons/primeicons.css";
+
+@import "./styles/variables.scss";
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  color: $base;
+  font: $open-sans-default;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

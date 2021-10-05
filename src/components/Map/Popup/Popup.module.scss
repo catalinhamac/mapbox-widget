@@ -1,0 +1,34 @@
+@import "../../../styles/variables.scss";
+
+.Small {
+  font-size: 14px;
+}
+
+.Medium {
+  font-size: 14px;
+}
+
+.Large {
+  font-size: 18px;
+}
+
+.popup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.name,
+.desc {
+  margin: 0;
+}
+
+.name {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.desc {
+  color: $subtitle;
+  font-weight: 400;
+}
