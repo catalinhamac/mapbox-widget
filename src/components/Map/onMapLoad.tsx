@@ -3,8 +3,6 @@ import mapboxgl from 'mapbox-gl';
 import { clusterCountLayerId, clustersLayerId, storesSourceId, unclusteredPointLayerId } from './Map';
 import { ISource } from './models/Source';
 
-
-
 export const onMapLoad = (map: mapboxgl.Map, source: ISource) => {
   map.on("load", () => {
     map.addSource(storesSourceId, {
@@ -24,7 +22,7 @@ export const onMapLoad = (map: mapboxgl.Map, source: ISource) => {
           'circle-color': [
           'step',
           ['get', 'point_count'],
-          '#51bbd6',
+          'white',
           100,
           '#f1f075',
           750,
@@ -38,7 +36,9 @@ export const onMapLoad = (map: mapboxgl.Map, source: ISource) => {
           30,
           750,
           40
-          ]
+          ],
+          'circle-stroke-width': 3,
+      'circle-stroke-color': '#00b4d3'
         }
       });
 
@@ -60,10 +60,10 @@ export const onMapLoad = (map: mapboxgl.Map, source: ISource) => {
       source: storesSourceId,
       filter: ['!', ['has', 'point_count']],
       paint: {
-      'circle-color': '#11b4da',
-      'circle-radius': 4,
-      'circle-stroke-width': 1,
-      'circle-stroke-color': '#fff'
+      'circle-color': 'white',
+      'circle-radius': 6,
+      'circle-stroke-width': 3,
+      'circle-stroke-color': '#00b4d3'
       }
       });
   });

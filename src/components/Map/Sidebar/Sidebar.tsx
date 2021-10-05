@@ -5,17 +5,15 @@ import { IPoi } from "../models/Poi";
 import { IFeature, ISource } from "../models/Source";
 import { pois } from "../../../data/pois";
 import { createPopup, flyToStore, setStoresSource } from "../utils";
+import { useMap } from "../useMap";
 
 import styles from "./Sidebar.module.scss";
 import mapboxgl from "mapbox-gl";
 
-interface IProps {
-  map: mapboxgl.Map
-}
-
-export const Sidebar = ({ map }: IProps) => {
+export const Sidebar = () => {
   const poisRef = useRef<ISource>(setStoresSource(pois as IPoi[]));
   const [itemId, setItemId] = useState<number | undefined>();
+  const map = useMap() as mapboxgl.Map;
 
   const handleClick = (id: number) => () => {
     poisRef.current.features.forEach((feature: IFeature) => {
@@ -29,7 +27,7 @@ export const Sidebar = ({ map }: IProps) => {
 
   return (
     <div className={styles.sidebar}>
-      {<h2>Stores</h2>}
+      {<h2 className={styles.title}>Stores</h2>}
       <ul className={styles.listings}>
         {poisRef.current.features.map(
           ({ id, properties: { address, city } }: IFeature) => (
@@ -41,15 +39,18 @@ export const Sidebar = ({ map }: IProps) => {
                 [styles.active]: id === itemId,
               })}
             >
+              <i className={clsx("pi pi-home", styles.icon)}></i>
+              <span>
               <button
                 type="button"
-                className={styles.title}
+                className={styles.itemTitle}
                 id={`link-${id}`}
                 onClick={handleClick(id as number)}
               >
                 {address}
               </button>
-              <div>{city}</div>
+              <p className={styles.text}>{city}</p>
+              </span>
             </li>
           )
         )}
