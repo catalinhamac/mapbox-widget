@@ -1,3 +1,5 @@
+@import "../../../styles/variables.scss";
+
 .sidebar {
   position: absolute;
   width: 33.3333%;
@@ -6,6 +8,13 @@
   left: 0;
   overflow: hidden;
   border-right: 1px solid rgba(0, 0, 0, 0.25);
+}
+.title {
+  padding: 10px;
+}
+
+.text {
+  margin: 0;
 }
 
 .listings {
@@ -16,19 +25,29 @@
   margin: 0;
 }
 
-.listings .item {
-  border-bottom: 1px solid #eee;
+.item {
+  border-bottom: 1px solid $border-color;
   padding: 10px;
   text-decoration: none;
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    background-color: $light-grey;
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
 }
 
-.listings .item:last-child {
-  border-bottom: none;
+.icon {
+  font-size: 28px;
+  margin-right: 5px;
 }
 
-.listings .item .title {
+.itemTitle {
   display: block;
-  color: #00853e;
   font-weight: 700;
   border: none;
   background-color: transparent;
@@ -36,13 +55,13 @@
   cursor: pointer;
 }
 
-.listings .item.active .title,
-.listings .item .title:hover {
-  color: #8cc63f;
+.item.active .itemTitle,
+.title:hover {
+  color: $item-active;
 }
 
-.listings .item.active {
-  background-color: #f8f8f8;
+.item.active {
+  background-color: $light-grey;
 }
 
 ::-webkit-scrollbar {
@@ -57,6 +76,6 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #00853e;
+  background: $item-active;
   border-radius: 0;
 }

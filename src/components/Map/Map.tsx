@@ -8,8 +8,10 @@ import { mapboxglConfig } from "./config";
 import { ISource } from "./models/Source";
 import {onMapLoad} from "./onMapLoad";
 import {onMapClick} from "./onMapClick";
+import {useAppDispatch} from "../../redux/hooks"
 
 import styles from "./Map.module.scss";
+import { setMap } from "../../redux/map/map-slice";
 
 export const initialCoordinates = { lat: 32.7492156, lng: -117.0698575 };
 export const storesSourceId = "storesSourceId";
@@ -17,14 +19,10 @@ export const clustersLayerId = "clustersLayerId";
 export const clusterCountLayerId="clusterCountLayerId";
 export const unclusteredPointLayerId="unclusteredPointLayerId";
 
-interface IProps {
-  dispatchMap: (map: mapboxgl.Map)=> void;
-}
-
-
-export const Map = ({ dispatchMap }: IProps) => {
+export const Map = () => {
   const containerMap = useRef<mapboxgl.Map | null>(null);
-  const sourceRef = useRef<ISource>(setStoresSource(pois as IPoi[]));  
+  const sourceRef = useRef<ISource>(setStoresSource(pois as IPoi[])); 
+  const dispatch = useAppDispatch(); 
 
   useEffect(() => {
     if (!containerMap) return;
@@ -39,11 +37,10 @@ export const Map = ({ dispatchMap }: IProps) => {
       zoom: 3,
       //scrollZoom: false,
     });
-    dispatchMap(map);
+  
+    dispatch(setMap(map))
     onMapLoad(map, sourceRef.current)
     onMapClick(map)
-
-   
 
     map.on('mouseenter', clustersLayerId, () => {
       map.getCanvas().style.cursor = 'pointer';
