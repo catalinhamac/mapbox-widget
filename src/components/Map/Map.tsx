@@ -9,9 +9,9 @@ import { ISource } from "./models/Source";
 import {onMapLoad} from "./onMapLoad";
 import {onMapClick} from "./onMapClick";
 import {useAppDispatch} from "../../redux/hooks"
+import { setMap } from "../../redux/map/map-slice";
 
 import styles from "./Map.module.scss";
-import { setMap } from "../../redux/map/map-slice";
 
 export const initialCoordinates = { lat: 32.7492156, lng: -117.0698575 };
 export const storesSourceId = "storesSourceId";
