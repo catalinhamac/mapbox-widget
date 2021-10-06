@@ -11,12 +11,14 @@ import styles from "./Sidebar.module.scss";
 import mapboxgl from "mapbox-gl";
 
 export const Sidebar = () => {
-  const poisRef = useRef<ISource>(setStoresSource(pois as IPoi[]));
+  const footprintStoresSourceRef = useRef<ISource>(
+    setStoresSource(pois as IPoi[])
+  );
   const [itemId, setItemId] = useState<number | undefined>();
   const map = useMap() as mapboxgl.Map;
 
   const handleClick = (id: number) => () => {
-    poisRef.current.features.forEach((feature: IFeature) => {
+    footprintStoresSourceRef.current.features.forEach((feature: IFeature) => {
       if (feature.id === id) {
         flyToStore(map, feature);
         createPopup(map, feature);
@@ -29,7 +31,7 @@ export const Sidebar = () => {
     <div className={styles.sidebar}>
       {<h2 className={styles.title}>Stores</h2>}
       <ul className={styles.listings}>
-        {poisRef.current.features.map(
+        {footprintStoresSourceRef.current.features.map(
           ({ id, properties: { address, city } }: IFeature) => (
             <li
               key={id}

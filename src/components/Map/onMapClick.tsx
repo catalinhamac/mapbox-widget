@@ -2,9 +2,9 @@ import mapboxgl from "mapbox-gl";
 
 import {
   clustersLayerId,
-  storesSourceId,
+  footprintSourceId,
   unclusteredPointLayerId,
-} from "./Map";
+} from "./config";
 import { createPopup, flyToStore } from "./utils";
 
 export const onMapClick = (map: mapboxgl.Map) => {
@@ -23,7 +23,7 @@ export const onMapClick = (map: mapboxgl.Map) => {
 
       if (!features.length) return;
 
-      (map.getSource(storesSourceId) as any).getClusterExpansionZoom(
+      (map.getSource(footprintSourceId) as any).getClusterExpansionZoom(
         features[0].properties?.cluster_id,
         (err: any, zoom: number) => {
           if (err) return;
