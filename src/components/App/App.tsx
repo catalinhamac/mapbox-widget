@@ -1,6 +1,6 @@
 import { MapContainer } from "../Map/MapContainer/MapContainer";
 
-export const tesId = "appTestId"
+export const tesId = "appTestId";
 
 export const App = () => {
   return (

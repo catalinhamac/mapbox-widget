@@ -1,0 +1,15 @@
+@import " ../../../../styles/variables.scss";
+
+.box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: $light-grey;
+  height: 100vh;
+}
+
+.icon {
+  font-size: 20px;
+  margin-right: 5px;
+}

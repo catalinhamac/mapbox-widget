@@ -49,6 +49,7 @@
   },
   "devDependencies": {
     "@turf/circle": "^6.5.0",
+    "@types/lodash": "^4.14.175",
     "@types/mapbox-gl": "^2.4.2",
     "env-cmd": "^10.1.0"
   }

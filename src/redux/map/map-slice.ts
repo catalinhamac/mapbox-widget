@@ -1,18 +1,18 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import mapboxgl from 'mapbox-gl';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import mapboxgl from "mapbox-gl";
 
-import { RootState } from '../store';
+import { RootState } from "../store";
 
 interface InitialState {
   map: mapboxgl.Map | null;
 }
 
 export const initialState: InitialState = {
-  map: null
+  map: null,
 };
 
 export const slice = createSlice({
-  name: 'map',
+  name: "map",
   initialState,
   reducers: {
     setMap: (state, action: PayloadAction<mapboxgl.Map>) => {
@@ -23,7 +23,7 @@ export const slice = createSlice({
 
 export const { setMap } = slice.actions;
 
-export const selectMap = (state: RootState): null | mapboxgl.Map=>
+export const selectMap = (state: RootState): null | mapboxgl.Map =>
   state.map.map;
 
 export default slice.reducer;

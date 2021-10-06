@@ -6,9 +6,9 @@ import { IPoi } from "./models/Poi";
 import { setStoresSource } from "./utils";
 import { mapboxglConfig } from "./config";
 import { ISource } from "./models/Source";
-import {onMapLoad} from "./onMapLoad";
-import {onMapClick} from "./onMapClick";
-import {useAppDispatch} from "../../redux/hooks"
+import { onMapLoad } from "./onMapLoad";
+import { onMapClick } from "./onMapClick";
+import { useAppDispatch } from "../../redux/hooks";
 import { setMap } from "../../redux/map/map-slice";
 
 import styles from "./Map.module.scss";
@@ -16,13 +16,13 @@ import styles from "./Map.module.scss";
 export const initialCoordinates = { lat: 32.7492156, lng: -117.0698575 };
 export const storesSourceId = "storesSourceId";
 export const clustersLayerId = "clustersLayerId";
-export const clusterCountLayerId="clusterCountLayerId";
-export const unclusteredPointLayerId="unclusteredPointLayerId";
+export const clusterCountLayerId = "clusterCountLayerId";
+export const unclusteredPointLayerId = "unclusteredPointLayerId";
 
 export const Map = () => {
   const containerMap = useRef<mapboxgl.Map | null>(null);
-  const sourceRef = useRef<ISource>(setStoresSource(pois as IPoi[])); 
-  const dispatch = useAppDispatch(); 
+  const sourceRef = useRef<ISource>(setStoresSource(pois as IPoi[]));
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (!containerMap) return;
@@ -37,17 +37,18 @@ export const Map = () => {
       zoom: 3,
       //scrollZoom: false,
     });
-  
-    dispatch(setMap(map))
-    onMapLoad(map, sourceRef.current)
-    onMapClick(map)
 
-    map.on('mouseenter', clustersLayerId, () => {
-      map.getCanvas().style.cursor = 'pointer';
-      });
-      map.on('mouseleave', clustersLayerId, () => {
-      map.getCanvas().style.cursor = '';
-      });
+    dispatch(setMap(map));
+
+    onMapLoad(map, sourceRef.current);
+    onMapClick(map);
+
+    map.on("mouseenter", clustersLayerId, () => {
+      map.getCanvas().style.cursor = "pointer";
+    });
+    map.on("mouseleave", clustersLayerId, () => {
+      map.getCanvas().style.cursor = "";
+    });
 
     map.on("mouseenter", unclusteredPointLayerId, (e) => {
       map.getCanvas().style.cursor = "pointer";

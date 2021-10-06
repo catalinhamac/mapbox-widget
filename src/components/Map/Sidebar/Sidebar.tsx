@@ -41,15 +41,15 @@ export const Sidebar = () => {
             >
               <i className={clsx("pi pi-home", styles.icon)}></i>
               <span>
-              <button
-                type="button"
-                className={styles.itemTitle}
-                id={`link-${id}`}
-                onClick={handleClick(id as number)}
-              >
-                {address}
-              </button>
-              <p className={styles.text}>{city}</p>
+                <button
+                  type="button"
+                  className={styles.itemTitle}
+                  id={`link-${id}`}
+                  onClick={handleClick(id as number)}
+                >
+                  {address}
+                </button>
+                <p className={styles.text}>{city}</p>
               </span>
             </li>
           )
