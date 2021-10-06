@@ -1,18 +1,42 @@
 import mapboxgl from "mapbox-gl";
 
 import {
+  catchmentAreaLayerId,
+  catchmentAreaSourceId,
   clusterCountLayerId,
   clustersLayerId,
-  storesSourceId,
+  footprintSourceId,
   unclusteredPointLayerId,
-} from "./Map";
-import { ISource } from "./models/Source";
+} from "./config";
+import { setStoresSource, SourceType } from "./utils";
+import { pois } from "../../data/pois";
+import { IPoi } from "./models/Poi";
 
-export const onMapLoad = (map: mapboxgl.Map, source: ISource) => {
+const footprintStoresSource = setStoresSource(pois as IPoi[]);
+const catchmentAreaStoresSource = setStoresSource(
+  pois as IPoi[],
+  SourceType.CatchmentArea
+);
+
+export const onMapLoad = (map: mapboxgl.Map) => {
   map.on("load", () => {
-    map.addSource(storesSourceId, {
+    map.addSource(catchmentAreaSourceId, {
       type: "geojson",
-      data: source as any,
+      data: catchmentAreaStoresSource as any,
+    });
+
+    map.addLayer({
+      id: catchmentAreaLayerId,
+      type: "fill-extrusion",
+      source: catchmentAreaSourceId,
+      paint: {
+        "fill-extrusion-color": "grey",
+        "fill-extrusion-opacity": 0.1,
+      },
+    });
+    map.addSource(footprintSourceId, {
+      type: "geojson",
+      data: footprintStoresSource as any,
       cluster: true,
       clusterMaxZoom: 14,
       clusterRadius: 50,
@@ -21,7 +45,7 @@ export const onMapLoad = (map: mapboxgl.Map, source: ISource) => {
     map.addLayer({
       id: clustersLayerId,
       type: "circle",
-      source: storesSourceId,
+      source: footprintSourceId,
       filter: ["has", "point_count"],
       paint: {
         "circle-color": [
@@ -42,7 +66,7 @@ export const onMapLoad = (map: mapboxgl.Map, source: ISource) => {
     map.addLayer({
       id: clusterCountLayerId,
       type: "symbol",
-      source: storesSourceId,
+      source: footprintSourceId,
       filter: ["has", "point_count"],
       layout: {
         "text-field": "{point_count_abbreviated}",
@@ -54,7 +78,7 @@ export const onMapLoad = (map: mapboxgl.Map, source: ISource) => {
     map.addLayer({
       id: unclusteredPointLayerId,
       type: "circle",
-      source: storesSourceId,
+      source: footprintSourceId,
       filter: ["!", ["has", "point_count"]],
       paint: {
         "circle-color": "white",
