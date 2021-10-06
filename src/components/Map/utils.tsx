@@ -12,7 +12,10 @@ export const setStoresSource = (pois: IPoi[]): ISource => {
   const features = copy.map(({ footprint, ...rest }: IPoi, index: number) => ({
     id: index,
     type: "Feature",
-    geometry: {type: "Point", coordinates: JSON.parse(footprint).coordinates[0][0]},
+    geometry: {
+      type: "Point",
+      coordinates: JSON.parse(footprint).coordinates[0][0],
+    },
     properties: { ...rest },
   }));
 
