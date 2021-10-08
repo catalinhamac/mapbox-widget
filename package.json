@@ -27,7 +27,11 @@
     "start": "env-cmd -f .env/local react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "test:coverage": "npm run test -- --watchAll false --coverage",
+    "lint": "eslint \"src/**/*.{ts,tsx}\"",
+    "lint:fix": "eslint --fix \"src/**/*.{ts,tsx}\"",
+    "validate": "npm-run-all lint test:coverage build"
   },
   "eslintConfig": {
     "extends": [
@@ -51,6 +55,26 @@
     "@turf/circle": "^6.5.0",
     "@types/lodash": "^4.14.175",
     "@types/mapbox-gl": "^2.4.2",
-    "env-cmd": "^10.1.0"
+    "env-cmd": "^10.1.0",
+    "npm-run-all": "^4.1.5"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,ts,tsx}",
+      "!<rootDir>/node_modules/",
+      "!<rootDir>/src/(mocks|data)/**/*",
+      "!<rootDir>/src/index.tsx",
+      "!<rootDir>/src/reportWebVitals.js",
+      "!<rootDir>/src/react-app-env.d.ts",
+      "!<rootDir>/src/**/config.ts"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 90,
+        "functions": 90,
+        "lines": 90,
+        "statements": 90
+      }
+    }
   }
 }

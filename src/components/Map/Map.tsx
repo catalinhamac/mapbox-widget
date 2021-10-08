@@ -8,28 +8,36 @@ import {
   unclusteredPointLayerId,
 } from "./config";
 import { onMapLoad } from "./onMapLoad";
-import { onMapClick } from "./onMapClick";
 import { useAppDispatch } from "../../redux/hooks";
 import { setMap } from "../../redux/map/map-slice";
 
 import styles from "./Map.module.scss";
 
-export const Map = () => {
+export const testId = "mapTestId";
+
+interface OwnProps {
+  onMapClick?: (map: mapboxgl.Map) => void;
+}
+
+type IProps = OwnProps & (mapboxgl.MapboxOptions | undefined);
+
+export const Map = (props: IProps) => {
+  const { onMapClick = () => {}, ...rest } = props;
   const containerMap = useRef<mapboxgl.Map | null>(null);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (!containerMap) return;
+    if (!containerMap.current) return;
 
     const map = new mapboxgl.Map({
       ...mapboxglConfig,
-      container: containerMap.current as any,
       center: new mapboxgl.LngLat(
         initialCoordinates.lng,
         initialCoordinates.lat
       ),
       zoom: 3,
-      //scrollZoom: false,
+      ...rest,
+      container: containerMap.current as any,
     });
 
     dispatch(setMap(map));
@@ -40,6 +48,7 @@ export const Map = () => {
     map.on("mouseenter", clustersLayerId, () => {
       map.getCanvas().style.cursor = "pointer";
     });
+
     map.on("mouseleave", clustersLayerId, () => {
       map.getCanvas().style.cursor = "";
     });
@@ -68,5 +77,11 @@ export const Map = () => {
     // eslint-disable-next-line
   }, []);
 
-  return <div className={styles.map} ref={containerMap as any} />;
+  return (
+    <div
+      className={styles.map}
+      ref={containerMap as any}
+      data-testid={testId}
+    />
+  );
 };
