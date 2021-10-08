@@ -1,10 +1,10 @@
 import { MapContainer } from "../Map/MapContainer/MapContainer";
 
-export const tesId = "appTestId";
+export const testId = "appTestId";
 
 export const App = () => {
   return (
-    <div data-testid={tesId}>
+    <div data-testid={testId}>
       <MapContainer />
     </div>
   );
